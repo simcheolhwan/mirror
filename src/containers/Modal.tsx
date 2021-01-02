@@ -20,5 +20,8 @@ export default Modal
 /* modal */
 export const useModal = (initial = false) => {
   const [isOpen, setIsOpen] = useState(initial)
-  return { isOpen, open: () => setIsOpen(true), close: () => setIsOpen(false) }
+  const open = () => setIsOpen(true)
+  const close = () => setIsOpen(false)
+  const toggle = () => setIsOpen((isOpen) => !isOpen)
+  return { isOpen, open, close, toggle }
 }

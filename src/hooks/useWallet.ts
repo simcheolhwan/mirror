@@ -13,6 +13,7 @@ import useLocalWallet from "./useLocalWallet"
 interface ManageLocalWallet {
   wallets: LocalWallet[]
   key?: RawKey
+  setKey: (key?: RawKey) => void
   recover: (mk: MnemonicKey, password: string) => void
   decrypt: (wallet: LocalWallet, password: string) => void
 }

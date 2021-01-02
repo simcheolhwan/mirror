@@ -1,0 +1,31 @@
+@import "mixins";
+
+$height: 26px;
+
+.wrapper {
+  @include flex;
+  align-items: stretch;
+  flex-direction: column;
+  border: solid 1px fade-out(white, 0.5);
+  border-radius: ($height / 2);
+  color: fade-out(white, 0.5);
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 15px;
+}
+
+.button {
+  @include flex;
+  text-transform: uppercase;
+  padding-left: 18px;
+  height: ($height - 2);
+}
+
+.item {
+  @include flex;
+  @include link(fade-out(white, 0.4));
+  font-size: 12px;
+  font-weight: normal;
+  padding: 8px 0;
+  border-top: 1px solid fade-out(white, 0.92);
+}

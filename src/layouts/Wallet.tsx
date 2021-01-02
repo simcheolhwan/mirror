@@ -5,6 +5,7 @@ import { useNetwork, useWallet, useRefetch } from "../hooks"
 import { AccountInfoKey } from "../hooks/contractKeys"
 import { getPath, MenuKey } from "../routes"
 import ConnectedInfo from "../components/ConnectedInfo"
+import QuickSwitch from "../pages/Auth/QuickSwitch"
 
 const Wallet = ({ close }: { close: () => void }) => {
   const { address, disconnect } = useWallet()
@@ -20,6 +21,7 @@ const Wallet = ({ close }: { close: () => void }) => {
       to: { pathname: getPath(MenuKey.SEND), state: { token: UUSD } },
       children: MenuKey.SEND,
     },
+    extra: <QuickSwitch />,
   }
 
   return <ConnectedInfo {...info} close={close} />

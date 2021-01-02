@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { ReactNode, useState } from "react"
 import { LinkProps } from "react-router-dom"
 import Icon from "./Icon"
 import Button from "./Button"
@@ -12,12 +12,13 @@ interface Props {
   truncated: string
   link: { href: string; children: string }
   footer?: LinkProps
+  extra?: ReactNode
   disconnect?: () => void
   close: () => void
 }
 
 const ConnectedInfo = (props: Props) => {
-  const { address, truncated, link, footer, disconnect, close } = props
+  const { address, truncated, link, footer, extra, disconnect, close } = props
   const { copy, copied, reset } = useCopyAddress(address)
 
   return (
@@ -70,6 +71,8 @@ const ConnectedInfo = (props: Props) => {
           {footer.children}
         </LinkButton>
       )}
+
+      {extra}
     </div>
   )
 }

@@ -46,7 +46,7 @@ const useLocalWallet = ({ address, setAddress }: Props) => {
     }
   }
 
-  return { recover, wallets, decrypt: decryptWallet, key }
+  return { recover, wallets, decrypt: decryptWallet, key, setKey }
 }
 
 export default useLocalWallet
