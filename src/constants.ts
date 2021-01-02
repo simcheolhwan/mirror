@@ -1,4 +1,4 @@
-export const isElectron = navigator.userAgent.includes("Electron")
+export const isElectron = true
 
 /* terra:network */
 export const FINDER = "https://finder.terra.money"

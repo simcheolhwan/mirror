@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard"
 import Info from "./pages/Info"
 import Auth from "./pages/Auth/Auth"
 import My from "./pages/My/My"
+import Restake from "./pages/Restake"
 import Send from "./pages/Send"
 import Airdrop from "./pages/Airdrop"
 import Trade from "./pages/Trade"
@@ -26,6 +27,7 @@ export enum MenuKey {
   INFO = "Info",
   AUTH = "Auth",
   MY = "My Page",
+  RESTAKE = "Restake",
   SEND = "Send",
   AIRDROP = "Airdrop",
   TRADE = "Trade",
@@ -58,6 +60,7 @@ export const menu: Dictionary<RouteProps> = {
 
   // Menu
   [MenuKey.MY]: { path: "/my", component: My },
+  [MenuKey.RESTAKE]: { path: "/restake", component: Restake },
   [MenuKey.TRADE]: { path: "/trade", component: Trade },
   [MenuKey.MINT]: { path: "/mint", component: Mint },
   [MenuKey.BURN]: { path: "/burn/:token", component: Burn },
