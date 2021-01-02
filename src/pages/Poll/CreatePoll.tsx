@@ -5,8 +5,7 @@ import Card from "../../components/Card"
 import CreatePollForm from "../../forms/CreatePollForm"
 import { MenuKey } from "../Gov"
 import ForumLink from "./ForumLink"
-import CreatePollButton from "./CreatePollButton"
-import styles from "./CreatePoll.module.scss"
+import Submenu from "../../components/Submenu"
 
 export enum Type {
   "TEXT" = "TEXT",
@@ -60,13 +59,12 @@ const CreatePoll = () => {
           <ForumLink />
 
           <Card lg>
-            <header className={styles.header}>
-              <h1 className={styles.title}>{TITLE}</h1>
-            </header>
-
-            {Object.entries(Buttons).map(([key, item]) => (
-              <CreatePollButton {...item} hash={key} key={key} />
-            ))}
+            <Submenu
+              title={TITLE}
+              list={Object.entries(Buttons).map(([key, item]) => {
+                return { ...item, to: { hash: key } }
+              })}
+            />
           </Card>
         </Container>
       ) : (
