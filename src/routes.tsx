@@ -3,7 +3,7 @@ import { Dictionary } from "ramda"
 
 import Dashboard from "./pages/Dashboard"
 import Info from "./pages/Info"
-import Auth from "./pages/Auth"
+import Auth from "./pages/Auth/Auth"
 import My from "./pages/My/My"
 import Send from "./pages/Send"
 import Airdrop from "./pages/Airdrop"

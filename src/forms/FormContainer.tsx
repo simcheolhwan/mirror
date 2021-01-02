@@ -4,10 +4,11 @@ import { Msg } from "@terra-money/terra.js"
 
 import MESSAGE from "../lang/MESSAGE.json"
 import Tooltip from "../lang/Tooltip.json"
-import { UUSD } from "../constants"
+import { isElectron, UUSD } from "../constants"
 import { gt, plus, sum } from "../libs/math"
 import useHash from "../libs/useHash"
 import extension, { PostResponse } from "../terra/extension"
+import usePost from "../terra/usePost"
 import { useContract, useSettings, useWallet } from "../hooks"
 import useTax from "../graphql/useTax"
 import useFee from "../graphql/useFee"
@@ -20,6 +21,7 @@ import FormFeedback from "../components/FormFeedback"
 import Button from "../components/Button"
 import Count from "../components/Count"
 import { TooltipIcon } from "../components/Tooltip"
+import DecryptWallet from "../pages/Auth/DecryptWallet"
 
 import Caution from "./Caution"
 import Result from "./Result"
@@ -61,11 +63,12 @@ export const FormContainer = ({ data: msgs, memo, ...props }: Props) => {
 
   /* context */
   const { hash } = useHash()
+  const post = usePost()
   const { agreementState } = useSettings()
   const [hasAgreed] = agreementState
 
   const { uusd, result } = useContract()
-  const { address, connect } = useWallet()
+  const { address, key, connect } = useWallet()
   const { loading } = result.uusd
 
   /* tax */
@@ -95,7 +98,8 @@ export const FormContainer = ({ data: msgs, memo, ...props }: Props) => {
   const submit = async () => {
     setSubmitted(true)
 
-    const response = await extension.post(
+    const postTx = isElectron ? post : extension.post
+    const response = await postTx(
       { msgs, memo },
       { ...fee, tax: !deduct ? tax : undefined }
     )
@@ -167,10 +171,14 @@ export const FormContainer = ({ data: msgs, memo, ...props }: Props) => {
     return tab ? <Tab {...tab}>{form}</Tab> : <Card lg>{form}</Card>
   }
 
+  const shouldDecrypt = isElectron && address && !key
+
   return (
     <Container sm>
       {response ? (
         <Result {...response} parseTx={parseTx} onFailure={reset} gov={gov} />
+      ) : shouldDecrypt ? (
+        <DecryptWallet />
       ) : (
         <form {...attrs} onSubmit={handleSubmit}>
           {!confirming ? (

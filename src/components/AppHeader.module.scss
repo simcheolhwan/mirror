@@ -2,6 +2,8 @@
 @import "variables";
 
 .header {
+  @include drag();
+
   background: $header;
   box-shadow: 0 10px 10px 0 fade-out($bg, 0.5);
   position: sticky;

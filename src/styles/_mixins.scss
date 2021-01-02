@@ -48,3 +48,8 @@
     padding-bottom: $footer-height-mobile;
   }
 }
+
+@mixin drag() {
+  -webkit-app-region: drag;
+  cursor: default;
+}

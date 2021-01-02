@@ -4,8 +4,8 @@ import { plus } from "../libs/math"
 
 export type Result = SyncTxBroadcastResult.Data
 export interface PostResponse {
-  id: number
-  origin: string
+  id?: number
+  origin?: string
   success: boolean
   result?: Result
   error?: { code: number; message?: string }

@@ -1,13 +1,23 @@
-import { useCallback, useEffect } from "react"
+import { useEffect } from "react"
 import { useMutation } from "@apollo/client"
+import { MnemonicKey, RawKey } from "@terra-money/terra.js"
+import { isElectron } from "../constants"
 import useLocalStorage from "../libs/useLocalStorage"
 import extension from "../terra/extension"
 import { CONNECT } from "../statistics/gqldocs"
 import useStatsClient from "../statistics/useStatsClient"
 import createContext from "./createContext"
 import { useNetwork } from "./useNetwork"
+import useLocalWallet from "./useLocalWallet"
 
-interface Wallet {
+interface ManageLocalWallet {
+  wallets: LocalWallet[]
+  key?: RawKey
+  recover: (mk: MnemonicKey, password: string) => void
+  decrypt: (wallet: LocalWallet, password: string) => void
+}
+
+interface Wallet extends ManageLocalWallet {
   /** Terra wallet address */
   address: string
   /** Extension installed */
@@ -35,10 +45,10 @@ export const useWalletState = (): Wallet => {
 
   const glance = setAddress
 
-  const connect = useCallback(async () => {
+  const connect = async () => {
     const response = await extension.connect()
-    response?.address && setAddress(response.address)
-  }, [setAddress])
+    response?.address && setAddress(response?.address)
+  }
 
   const disconnect = () => setAddress("")
 
@@ -47,10 +57,13 @@ export const useWalletState = (): Wallet => {
   // Log in as the address of the extension when user enters the app
   // even if there is an address on the local storage.
   useEffect(() => {
-    address && connect()
-  }, [address, connect])
+    address && !isElectron && connect()
+    // eslint-disable-next-line
+  }, [address])
 
-  return { address, installed, install, glance, connect, disconnect }
+  /* local */
+  const local = useLocalWallet({ address, setAddress })
+  return { address, installed, install, glance, connect, disconnect, ...local }
 }
 
 /* graph */

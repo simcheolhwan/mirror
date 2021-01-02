@@ -133,7 +133,6 @@ const SendForm = ({ tab, shuttleList }: Props) => {
           <select
             value={network}
             onChange={(e) => setValue(Key.network, e.target.value)}
-            style={{ width: "100%" }}
           >
             {["", "ethereum", "bsc"].map((value) => (
               <option
