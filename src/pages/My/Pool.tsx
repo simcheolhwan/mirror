@@ -2,6 +2,7 @@ import { LP, UUSD } from "../../constants"
 import MESSAGE from "../../lang/MESSAGE.json"
 import Tooltip from "../../lang/Tooltip.json"
 import { formatAsset } from "../../libs/parse"
+import { percent } from "../../libs/num"
 import getLpName from "../../libs/getLpName"
 import { getPath, MenuKey } from "../../routes"
 
@@ -82,6 +83,17 @@ const Pool = ({ loading, totalWithdrawableValue, dataSource }: Props) => {
               key: "withdrawable.value",
               title: "Withdrawable Value",
               render: (value) => formatAsset(value, UUSD),
+              align: "right",
+            },
+            {
+              key: "ratio",
+              render: (value) => percent(value),
+              align: "right",
+            },
+            {
+              key: "apr",
+              title: <TooltipIcon content={Tooltip.My.APR}>APR</TooltipIcon>,
+              render: (value) => percent(value),
               align: "right",
             },
             {

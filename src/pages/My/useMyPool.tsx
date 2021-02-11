@@ -1,7 +1,8 @@
-import { sum, gt } from "../../libs/math"
+import { sum, gt, div, minus, number } from "../../libs/math"
 import { percent } from "../../libs/num"
 import { useContractsAddress, useContract, useCombineKeys } from "../../hooks"
 import { BalanceKey, PriceKey } from "../../hooks/contractKeys"
+import useAssetStats from "../../statistics/useAssetStats"
 import usePool from "../../forms/usePool"
 import usePoolShare from "../../forms/usePoolShare"
 
@@ -21,7 +22,9 @@ const useMyPool = () => {
   const getPool = usePool()
   const getPoolShare = usePoolShare()
 
-  const dataSource = !data
+  const { apr } = useAssetStats()
+
+  const list = !data
     ? []
     : listedAll
         .map((item) => {
@@ -34,6 +37,7 @@ const useMyPool = () => {
 
           return {
             ...item,
+            apr: apr?.[token],
             balance,
             withdrawable: fromLP,
             share: prefix + percent(lessThanMinimum ? minimum : ratio),
@@ -42,8 +46,15 @@ const useMyPool = () => {
         .filter(({ balance }) => gt(balance, 0))
 
   const totalWithdrawableValue = sum(
-    dataSource.map(({ withdrawable }) => withdrawable.value)
+    list.map(({ withdrawable }) => withdrawable.value)
   )
+
+  const dataSource = list
+    .map((item) => {
+      const { withdrawable } = item
+      return { ...item, ratio: div(withdrawable.value, totalWithdrawableValue) }
+    })
+    .sort(({ ratio: a }, { ratio: b }) => number(minus(b, a)))
 
   return { keys, loading, dataSource, totalWithdrawableValue }
 }
