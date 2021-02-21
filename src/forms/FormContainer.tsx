@@ -5,7 +5,7 @@ import { Msg } from "@terra-money/terra.js"
 import MESSAGE from "../lang/MESSAGE.json"
 import Tooltip from "../lang/Tooltip.json"
 import { UUSD } from "../constants"
-import { gt, plus, sum } from "../libs/math"
+import { gt, plus, sum, times } from "../libs/math"
 import useHash from "../libs/useHash"
 import extension, { PostResponse } from "../terra/extension"
 import { useContract, useSettings, useWallet } from "../hooks"
@@ -34,6 +34,7 @@ interface Props {
   pretax?: string
   /** Exclude tax from the contract */
   deduct?: boolean
+  length?: number
   /** Form feedback */
   messages?: ReactNode[]
 
@@ -57,7 +58,7 @@ interface Props {
 
 export const FormContainer = ({ data: msgs, memo, ...props }: Props) => {
   const { contents, messages, label, tab, children } = props
-  const { attrs, pretax, deduct, parseTx = () => [], gov } = props
+  const { attrs, pretax, deduct, length, parseTx = () => [], gov } = props
 
   /* context */
   const { hash } = useHash()
@@ -97,7 +98,7 @@ export const FormContainer = ({ data: msgs, memo, ...props }: Props) => {
 
     const response = await extension.post(
       { msgs, memo },
-      { ...fee, tax: !deduct ? tax : undefined }
+      { ...fee, tax: !deduct ? (length ? times(tax, length) : tax) : undefined }
     )
 
     setResponse(response)

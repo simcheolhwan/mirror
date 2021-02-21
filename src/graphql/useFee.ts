@@ -6,7 +6,7 @@ const useFee = (length = 1) => {
   const { gasPrice } = fee
 
   const amount = new BigNumber(fee.amount)
-    .times(Math.ceil(length / 3))
+    .times(Math.ceil(length / 2))
     .toNumber()
 
   const gas = new BigNumber(amount)

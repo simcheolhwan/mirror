@@ -12,6 +12,7 @@ import Mint from "./pages/Mint"
 import Burn from "./pages/Burn"
 import Pool from "./pages/Pool"
 import Stake from "./pages/Stake"
+import Multiple from "./pages/Multiple"
 import Gov from "./pages/Gov"
 
 import Auction from "./pages/Auction"
@@ -26,6 +27,7 @@ export enum MenuKey {
   INFO = "Info",
   AUTH = "Auth",
   MY = "My Page",
+  MULTIPLE = "Multiple",
   SEND = "Send",
   AIRDROP = "Airdrop",
   TRADE = "Trade",
@@ -58,6 +60,7 @@ export const menu: Dictionary<RouteProps> = {
 
   // Menu
   [MenuKey.MY]: { path: "/my", component: My },
+  [MenuKey.MULTIPLE]: { path: "/multiple", component: Multiple },
   [MenuKey.TRADE]: { path: "/trade", component: Trade },
   [MenuKey.MINT]: { path: "/mint", component: Mint },
   [MenuKey.BURN]: { path: "/burn/:token", component: Burn },
