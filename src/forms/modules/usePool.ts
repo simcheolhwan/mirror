@@ -43,7 +43,8 @@ const usePool = () => {
       uusd: { amount: pairPool.uusd, token: "uusd" },
     }
 
-    const fromLP = calc.fromLP(amount, shares, pairPool.total)
+    const fromLP = calc.fromLP(amount ?? 0, shares, pairPool.total)
+
     const assetValueFromLP = times(
       findPrice(priceKey, token),
       fromLP.asset.amount

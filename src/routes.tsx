@@ -17,6 +17,7 @@ import ClaimRewards from "./pages/Txs/ClaimRewards"
 import ClaimUST from "./pages/Txs/ClaimUST"
 import Airdrop from "./pages/Txs/Airdrop"
 import LimitOrder from "./pages/Txs/LimitOrder" // Cancel limit order
+import Multiple from "./pages/Multiple"
 
 /* Informations */
 import Info from "./pages/Info"
@@ -43,6 +44,8 @@ export enum MenuKey {
   CLAIMUST = "Claim UST",
   AIRDROP = "Airdrop",
   LIMIT = "Limit order",
+
+  MULTIPLE = "Multiple",
 }
 
 export const menu: Dictionary<RouteProps> = {
@@ -61,6 +64,8 @@ export const menu: Dictionary<RouteProps> = {
   [MenuKey.CLAIMUST]: { path: "/claim/ust", component: ClaimUST },
   [MenuKey.AIRDROP]: { path: "/airdrop", component: Airdrop },
   [MenuKey.LIMIT]: { path: "/limit", component: LimitOrder },
+
+  [MenuKey.MULTIPLE]: { path: "/multiple", component: Multiple },
 
   info: { path: "/info", component: Info },
   tool: { path: "/tool", component: Tool },

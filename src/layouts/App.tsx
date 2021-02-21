@@ -20,6 +20,7 @@ const icons: Dictionary<IconNames> = {
   [MenuKey.BORROW]: "Borrow",
   [MenuKey.FARM]: "Farm",
   [MenuKey.GOV]: "Governance",
+  [MenuKey.MULTIPLE]: "Mirror",
 }
 
 const App = () => {
